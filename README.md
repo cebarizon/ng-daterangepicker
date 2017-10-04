@@ -8,13 +8,13 @@ This project has been adapted to accept location and have range option today's d
 ### Installation
 
 ```sh
-npm install ng-daterangepicker --save
+npm install ng-daterangepicker2 --save
 ```
 
 ### Example
 
 ```ts
-import { NgDateRangePickerModule } from 'ng-daterangepicker';
+import { NgDateRangePickerModule } from 'ng-daterangepicker2';
 
 // app.module.ts
 @NgModule({
@@ -28,7 +28,7 @@ export class AppModule { }
 ```ts
 // app.component.ts
 import { Component, OnInit } from '@angular/core';
-import { NgDateRangePickerOptions } from 'ng-daterangepicker';
+import { NgDateRangePickerOptions } from 'ng-daterangepicker2';
 
 @Component({
   selector: 'app-root',
