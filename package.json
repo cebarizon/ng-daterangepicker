@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jkuri/ng-daterangepicker.git"
+    "url": "git+https://github.com/cebarizon/ng-daterangepicker.git"
   },
   "keywords": [
     "Angular",
@@ -37,12 +37,12 @@
     "daterange",
     "daterangepicker"
   ],
-  "author": "Jan Kuri <jkuri88@gmail.com>",
+  "author": "Carlos Eduardo Barizon <cebarizon@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jkuri/ng-daterangepicker/issues"
+    "url": "https://github.com/cebarizon/ng-daterangepicker/issues"
   },
-  "homepage": "https://github.com/jkuri/ng-daterangepicker#readme",
+  "homepage": "https://github.com/cebarizon/ng-daterangepicker#readme",
   "devDependencies": {
     "@angular/animations": "^4.0.0-rc.2",
     "@angular/common": "^4.0.0-rc.2",

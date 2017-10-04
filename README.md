@@ -45,8 +45,8 @@ export class AppComponent {
 	  presetNames: ['This Month', 'Last Month', 'This Week', 'Last Week', 'This Year', 'Last Year', 'Today', 'Start', 'End'],
 	  dateFormat: 'yMd',
 	  outputFormat: 'DD/MM/YYYY',
-	  startOfWeek: 1,
-    locale: 'en'
+    locale: 'en',
+	  startOfWeek: 1
 	};
   }
 }
