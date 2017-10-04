@@ -1,15 +1,50 @@
 import { Component, OnInit, HostListener, ElementRef, forwardRef, Input, OnChanges, SimpleChange } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import * as dateFns from 'date-fns';
+import * as format from 'date-fns/format';
+
+let locales = {
+  ar: require('date-fns/locale/ar'),
+  bg: require('date-fns/locale/bg'),
+  ca: require('date-fns/locale/ca'),
+  cs: require('date-fns/locale/cs'),
+  da: require('date-fns/locale/da'),
+  de: require('date-fns/locale/de'),
+  el: require('date-fns/locale/el'),
+  en: require('date-fns/locale/en'),
+  eo: require('date-fns/locale/eo'),
+  es: require('date-fns/locale/es'),
+  fi: require('date-fns/locale/fi'),
+  fil: require('date-fns/locale/fil'),
+  fr: require('date-fns/locale/fr'),
+  hr: require('date-fns/locale/hr'),
+  id: require('date-fns/locale/id'),
+  is: require('date-fns/locale/is'),
+  it: require('date-fns/locale/it'),
+  ja: require('date-fns/locale/ja'),
+  ko: require('date-fns/locale/ko'),
+  mk: require('date-fns/locale/mk'),
+  nb: require('date-fns/locale/nb'),
+  nl: require('date-fns/locale/nl'),
+  pl: require('date-fns/locale/pl'),  
+  pt: require('date-fns/locale/pt'),
+  ro: require('date-fns/locale/ro'),
+  ru: require('date-fns/locale/ru'),
+  sk: require('date-fns/locale/sk'),
+  sv: require('date-fns/locale/sv'),
+  th: require('date-fns/locale/th'),
+  tr: require('date-fns/locale/tr')
+}
 
 export interface NgDateRangePickerOptions {
   theme: 'default' | 'green' | 'teal' | 'cyan' | 'grape' | 'red' | 'gray';
-  range: 'tm' | 'lm' | 'lw' | 'tw' | 'ty' | 'ly';
+  range: 'tm' | 'lm' | 'lw' | 'tw' | 'ty' | 'ly' | 'td';
   dayNames: string[];
   presetNames: string[];
   dateFormat: string;
   outputFormat: string;
   startOfWeek: number;
+  locale: string;
 }
 
 export interface IDay {
@@ -43,19 +78,22 @@ export class NgDateRangePickerComponent implements ControlValueAccessor, OnInit,
   modelValue: string;
   opened: false | 'from' | 'to';
   date: Date;
+  dateFormat: string;
+  locale: any;
   dateFrom: Date;
   dateTo: Date;
   dayNames: string[];
   days: IDay[];
-  range: 'tm' | 'lm' | 'lw' | 'tw' | 'ty' | 'ly';
+  range: 'tm' | 'lm' | 'lw' | 'tw' | 'ty' | 'ly' | 'td';
   defaultOptions: NgDateRangePickerOptions = {
     theme: 'default',
     range: 'tm',
     dayNames: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    presetNames: ['This Month', 'Last Month', 'This Week', 'Last Week', 'This Year', 'Last Year', 'Start', 'End'],
+    presetNames: ['This Month', 'Last Month', 'This Week', 'Last Week', 'This Year', 'Last Year', 'Today', 'Start', 'End'],
     dateFormat: 'yMd',
     outputFormat: 'DD/MM/YYYY',
-    startOfWeek: 0
+    startOfWeek: 0,
+    locale: 'en'
   }
 
   private onTouchedCallback: () => void = () => { };
@@ -86,9 +124,109 @@ export class NgDateRangePickerComponent implements ControlValueAccessor, OnInit,
     this.onTouchedCallback = fn;
   }
 
+  getLocale() {
+    switch (this.options.locale) {
+      case 'ar':
+        this.locale = locales.ar;
+        break;
+      case 'bg':
+        this.locale = locales.bg;
+        break;
+      case 'ca':
+        this.locale = locales.ca;
+        break;
+      case 'cs':
+        this.locale = locales.cs;
+        break;
+      case 'da':
+        this.locale = locales.da;
+        break;
+      case 'de':
+        this.locale = locales.de;
+        break;
+      case 'el':
+        this.locale = locales.el;
+        break;
+      case 'en':
+        this.locale = locales.en;
+        break;
+      case 'eo':
+        this.locale = locales.eo;
+        break;
+      case 'es':
+        this.locale = locales.es;
+        break;
+      case 'fi':
+        this.locale = locales.fi;
+        break;
+      case 'fil':
+        this.locale = locales.fil;
+        break;
+      case 'fr':
+        this.locale = locales.fr;
+        break;
+      case 'hr':
+        this.locale = locales.hr;
+        break;
+      case 'id':
+        this.locale = locales.id;
+        break;
+      case 'is':
+        this.locale = locales.is;
+        break;
+      case 'it':
+        this.locale = locales.it;
+        break;
+      case 'ja':
+        this.locale = locales.ja;
+        break;
+      case 'ko':
+        this.locale = locales.ko;
+        break;
+      case 'mk':
+        this.locale = locales.mk;
+        break;
+      case 'nb':
+        this.locale = locales.nb;
+        break;
+      case 'nl':
+        this.locale = locales.nl;
+        break;
+      case 'pl':
+        this.locale = locales.pl;
+        break;
+      case 'pt':
+        this.locale = locales.pt;
+        break;
+      case 'ro':
+        this.locale = locales.ro;
+        break;
+      case 'ru':
+        this.locale = locales.ru;
+        break;
+      case 'sk':
+        this.locale = locales.sk;
+        break;
+      case 'sv':
+        this.locale = locales.sv;
+        break;
+      case 'th':
+        this.locale = locales.th;
+        break;
+      case 'tr':
+        this.locale = locales.tr;
+        break;
+    }
+  }
+
   ngOnInit() {
+
+    this.getLocale();
+
     this.opened = false;
     this.date = dateFns.startOfDay(new Date());
+    this.dateFormat = format(this.date, 'MMMM YYYY', {locale: this.locale});
+
     this.options = this.options || this.defaultOptions;
     this.initNames();
     this.selectRange(this.options.range);
@@ -179,15 +317,17 @@ export class NgDateRangePickerComponent implements ControlValueAccessor, OnInit,
 
   prevMonth(): void {
     this.date = dateFns.subMonths(this.date, 1);
+    this.dateFormat = format(this.date, 'MMMM YYYY ', {locale: this.locale});
     this.generateCalendar();
   }
 
   nextMonth(): void {
     this.date = dateFns.addMonths(this.date, 1);
+    this.dateFormat = format(this.date, 'MMMM YYYY ', {locale: this.locale});
     this.generateCalendar();
   }
 
-  selectRange(range: 'tm' | 'lm' | 'lw' | 'tw' | 'ty' | 'ly'): void {
+  selectRange(range: 'tm' | 'lm' | 'lw' | 'tw' | 'ty' | 'ly' | 'td'): void {
     let today = dateFns.startOfDay(new Date());
 
     switch (range) {
@@ -217,6 +357,10 @@ export class NgDateRangePickerComponent implements ControlValueAccessor, OnInit,
         today = dateFns.subYears(today, 1);
         this.dateFrom = dateFns.startOfYear(today);
         this.dateTo = dateFns.endOfYear(today);
+        break;
+      case 'td':
+        this.dateFrom = dateFns.startOfToday();
+        this.dateTo = dateFns.endOfToday();
         break;
     }
 

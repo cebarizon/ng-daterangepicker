@@ -1,20 +1,14 @@
 Angular DateRange Picker
 ---
 
-This date range picker was heavily inspired by PayPal's datepicker as seen on website.
+This date range picker is a fork of project https://github.com/jkuri/ng-daterangepicker
 
-Demo: http://ng-daterangepicker.jankuri.com
+This project has been adapted to accept location and have range option today's date.
 
 ### Installation
 
 ```sh
 npm install ng-daterangepicker --save
-```
-
-or
-
-```sh
-yarn add ng-daterangepicker --save
 ```
 
 ### Example
@@ -46,12 +40,13 @@ export class AppComponent {
   ngOnInit() {
     this.options = {
 	  theme: 'default',
-	  range: 'tm',
+	  range: 'td',
 	  dayNames: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-	  presetNames: ['This Month', 'Last Month', 'This Week', 'Last Week', 'This Year', 'Last Year', 'Start', 'End'],
+	  presetNames: ['This Month', 'Last Month', 'This Week', 'Last Week', 'This Year', 'Last Year', 'Today', 'Start', 'End'],
 	  dateFormat: 'yMd',
 	  outputFormat: 'DD/MM/YYYY',
-	  startOfWeek: 1
+	  startOfWeek: 1,
+    locale: 'en'
 	};
   }
 }
@@ -67,21 +62,13 @@ export class AppComponent {
 ```ts
 export interface NgDateRangePickerOptions {
   theme: 'default' | 'green' | 'teal' | 'cyan' | 'grape' | 'red' | 'gray';
-  range: 'tm' | 'lm' | 'lw' | 'tw' | 'ty' | 'ly';
+  range: 'tm' | 'lm' | 'lw' | 'tw' | 'ty' | 'ly' | 'td';
   dayNames: string[];
   presetNames: string[];
   dateFormat: string;
   outputFormat: string;
   startOfWeek: number;
 }
-```
-
-### Running the demo
-
-```sh
-git clone https://github.com/jkuri/ng-daterangepicker.git --depth 1
-cd ng-daterangepicker
-npm start
 ```
 
 ### Licence
